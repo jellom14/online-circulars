@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
 
             $table->integer("student_id")->unsigned();
-            $table->foreign("student_id")->references("id")->on("student");
+            $table->foreign("student_id")->references("id")->on("students");
 
             $table->dateTime("created_at");
             $table->timestamps();
