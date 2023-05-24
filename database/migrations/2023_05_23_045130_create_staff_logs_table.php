@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger("user_id")->unsigned();
             $table->foreign("user_id")->references("id")->on("users");
 
-            $table->dateTime("created_at");
+            $table->dateTime("date_created");
             $table->timestamps();
             $table->softDeletes();
         });
