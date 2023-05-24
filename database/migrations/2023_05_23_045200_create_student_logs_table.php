@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('student_logs', function (Blueprint $table) {
             $table->id();
 
-            $table->integer("student_id")->unsigned();
+            $table->bigInteger("student_id")->unsigned();
             $table->foreign("student_id")->references("id")->on("students");
 
             $table->dateTime("created_at");

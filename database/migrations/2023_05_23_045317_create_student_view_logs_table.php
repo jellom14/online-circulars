@@ -14,10 +14,13 @@ return new class extends Migration
     {
         Schema::create('student_view_logs', function (Blueprint $table) {
             $table->id();
-            $table->integer("student_log_id")->unsigned();
-            $table->foreign("student_log_id")->references("id")->on("student_logs");
+
             $table->integer("circular_id")->unsigned();
             $table->foreign("circular_id")->references("id")->on("circulars");
+            
+            $table->integer("student_log_id")->unsigned();
+            $table->foreign("student_log_id")->references("id")->on("student_logs");
+
             $table->timestamps();
             $table->softDeletes();
         });

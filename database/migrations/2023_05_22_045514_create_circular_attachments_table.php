@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('circular_attachments', function (Blueprint $table) {
             $table->id();
 
-            $table->integer("circular_id")->unsigned();
+            $table->bigInteger("circular_id")->unsigned();
             $table->foreign("circular_id")->references("id")->on("circulars");
 
             $table->string("name");

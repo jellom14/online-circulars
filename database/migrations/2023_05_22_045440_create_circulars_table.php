@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('circulars', function (Blueprint $table) {
             $table->id();
 
-            $table->integer("category_id")->unsigned();
+            $table->bigInteger("category_id")->unsigned();
             $table->foreign("category_id")->references("id")->on("categories");
 
             $table->string("name");
