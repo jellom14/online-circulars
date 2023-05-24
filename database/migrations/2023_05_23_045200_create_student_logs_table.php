@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger("student_id")->unsigned();
             $table->foreign("student_id")->references("id")->on("students");
 
-            $table->dateTime("created_at");
+            $table->dateTime("date_created");
             $table->timestamps();
             $table->softDeletes();
         });
