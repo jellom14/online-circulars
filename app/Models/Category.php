@@ -11,7 +11,7 @@ class Category extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public function circulars() : ?HasMany{
+    public function circulars() : ?HasMany {
         return $this->hasMany(Circular::class);
     }
 
