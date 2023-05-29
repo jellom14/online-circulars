@@ -6,11 +6,6 @@
 </head>
 <body>
   <div class="container mt-4">
-  @if(session('status'))
-    <div class="alert alert-success">
-        {{ session('status') }}
-    </div>
-  @endif
   <div class="card">
     <div class="card-header text-center font-weight-bold">
       Laravel 8 - Add Role
@@ -24,6 +19,10 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
+      <a href = "create-staff">Staff</a>
+      <a href = "create-student">Student</a>
+      <a href = "create-category">Category</a>
+      <a href = "create-circular">Circular</a>
     </div>
   </div>
 </div>  

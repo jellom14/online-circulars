@@ -11,6 +11,8 @@ class Category extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['name', 'created_at', 'updated_at', 'created_at'];
+
     public function circulars() : ?HasMany {
         return $this->hasMany(Circular::class);
     }

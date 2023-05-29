@@ -13,8 +13,8 @@ class Role extends Model
 
     protected $fillable = ['name', 'created_at', 'updated_at', 'created_at'];
     
-    public function staff() : ?HasMany {
-        return $this->hasMany(Staff::class);
+    public function user() : ?HasMany {
+        return $this->hasMany(User::class);
     }
     
 }

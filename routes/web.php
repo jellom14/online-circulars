@@ -1,7 +1,11 @@
 <?php
 
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CircularController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,25 +25,22 @@ Route::get('/', function () {
 }); 
 */
 
-/*
-Route::controller(RoleController::class)->group(function () {
-Route::get('add-role', [RoleController::class, 'create']);
-Route::post('add-role', [RoleController::class, 'store']);
-});
-*/
 
 Route::get('/', function () {
     return view('create-role');
 });
+
 Route::get('create-role', [RoleController::class, 'create']);
 Route::post('role-form', [RoleController::class, 'store']);
 
+Route::get('create-staff', [StaffController::class, 'create']);
+Route::post('staff-form', [StaffController::class, 'store']);
 
-//Route::get('RoleController', [RoleController::class, 'createrole']);
-//Route::get('app/http/controllers/rolecontroller@insert','app/http/controllers/RoleController@createrole');
-//Route::post('create','app/http/controllers/RoleController@insert');
+Route::get('create-student', [StudentController::class, 'create']);
+Route::post('student-form', [StudentController::class, 'store']);
 
-//Route::get('createrole', [RoleController::class, 'create']);
+Route::get('create-category', [CategoryController::class, 'create']);
+Route::post('category-form', [CategoryController::class, 'store']);
 
-//Route::get('createrole','RoleController@create');
-//Route::post('create','RoleController@createrole');
+Route::get('create-circular', [CircularController::class, 'create']);
+Route::post('circular-form', [CircularController::class, 'store']);

@@ -16,10 +16,10 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
-        $roletype = new Role;
-        $roletype->name = $request->name;
-        
-        $roletype->save();
+        $role = new Role;
+        $role->name = $request->name;
+       
+        $role->save();
         return redirect('create-role');
     }
 

@@ -8,19 +8,24 @@
   <div class="container mt-4">
   <div class="card">
     <div class="card-header text-center font-weight-bold">
-      Laravel 8 - Add Staff
+      Laravel 8 - Add circular
     </div>
     <div class="card-body">
-      <form name="create-staff" id="create-staff" method="post" action="{{url('staff-form')}}">
+      <form name="create-circular" id="create-circular" method="post" action="{{url('circular-form')}}">
        @csrf
-        <tr><div class="form-group">
-          <label for="exampleInputEmail1">Staff</label>
-          <input type="text" id="first_name" name="first_name" class="form-control" required="">
-        </div></tr>
-        <tr><div class="form-group">
-          <label for="exampleInputEmail1">Role</label>
-          <input type="text" id="role" name="role" class="form-control" required="">
-        </div></tr>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Name</label>
+          <input type="text" id="name" name="name" class="form-control" required="">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Category</label>
+          <input type="text" id="category_id" name="category_id" class="form-control" required="">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Date</label>
+          <input type="date" id="date" name="date" class="form-control">
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
       <a href = "create-staff">Staff</a>

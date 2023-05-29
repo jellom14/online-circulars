@@ -13,7 +13,7 @@ class StaffLog extends Model
     use HasFactory, SoftDeletes;
 
     public function staff() : ?BelongsTo{
-        return $this->belongsTo(Staff::class,'staff_id');
+        return $this->belongsTo(User::class,'staff_id');
     }
 
     public function staff_view_logs() : ?HasMany {

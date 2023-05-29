@@ -12,6 +12,8 @@ class Circular extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['name', 'category_id', 'number', 'date', 'created_at', 'updated_at', 'created_at'];
+
     public function category() : ?BelongsTo{
         return $this->belongsTo(Category::class,'category_id');
     }
