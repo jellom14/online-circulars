@@ -14,9 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//Route::get('/', function () {
+   // return view('welcome');
     //test
-});
+//});
 
+Route::get('add', [RoleController::class, 'data']);
 Route::post('add', [RoleController::class, 'data']);
