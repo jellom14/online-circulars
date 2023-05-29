@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,10 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-   // return view('welcome');
-    //test
-//});
+/*
+Route::get('/', function () {
+    return view('create_role');
+}); 
+*/
 
-Route::get('add', [RoleController::class, 'data']);
-Route::post('add', [RoleController::class, 'data']);
+
+Route::get('insert','RoleController@createrole');
+Route::post('create','RoleController@insert');
