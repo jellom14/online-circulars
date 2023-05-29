@@ -2,26 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use DB;
-use App\Http\Controllers\Controller;
 use App\Models\Role;
+use Illuminate\Http\Request;
+
+use App\Http\Controllers\Controller;
 
 class RoleController extends Controller
 {
-    //
-
-    public function createrole(){
-        return view('create_role');
+    public function create()
+    {
+        return view('create-role');
     }
 
-    public function insert(Request $role){
-    $name = $role -> input('name');   
-    $data = array('name'=>$name);
-    DB::table('roles')->insert($data);
-
-    echo "Record inserted successfully.<br/>";
+    public function store(Request $request)
+    {
+        $roletype = new Role;
+        $roletype->name = $request->name;
+        
+        $roletype->save();
+        return redirect('create-role');
+    }
 
 
     }
-}
+
+
