@@ -2,27 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddStudentRequest;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class StudentController extends Controller
-{
-    public function create()
-    {
-        return view('create-student');
+class StudentController extends Controller{
+    public function store(AddStudentRequest $request){ //CREATE ROLE
+ 
+        $student=new Student($request->validated());
+        $student->save();
+
+        return response()->json($student,Response::HTTP_OK);
     }
 
-    public function store(Request $request)
-    {
-        $student = new Student;
-        $student->first_name = $request->first_name;
-        $student->last_name = $request->first_name;
-        $student->middle_name = $request->first_name;
-        $student->username = $request->first_name;
-        $student->password = $request->first_name;
-        $student->email = $request->first_name;
+    public function update($id,AddStudentRequest $request){ //UPDATE ROLE
+   
+        $student=Student::find($id);
+        $student->update($request->validated());
         
-        $student->save();
-        return redirect('create-student');
+        return response()->json($student,Response::HTTP_OK);
+
+    }
+
+    public function show($id){ //SHOW ROLE
+        $student=Student::find($id);
+
+        return response()->json($student,Response::HTTP_OK);
+    }
+
+    public function destroy($id){ //DELETE ROLE
+        $student=Student::find($id);
+        $student->delete();
+
+        return response()->json($student,Response::HTTP_OK);
     }
 }

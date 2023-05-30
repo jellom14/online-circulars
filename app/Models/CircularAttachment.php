@@ -11,6 +11,8 @@ class CircularAttachment extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['name', 'circular_id', 'number', 'date'];
+
     public function circular() : ?BelongsTo{
         return $this->belongsTo(circular::class,'circular_id');
     }

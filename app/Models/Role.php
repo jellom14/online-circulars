@@ -11,9 +11,9 @@ class Role extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'created_at', 'updated_at', 'created_at'];
+    protected $fillable = ['name'];
     
-    public function user() : ?HasMany {
+    public function staff() : ?HasMany {
         return $this->hasMany(User::class);
     }
     

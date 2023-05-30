@@ -15,11 +15,12 @@ return new class extends Migration
         Schema::create('student_view_logs', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger("circular_id")->unsigned();
-            $table->foreign("circular_id")->references("id")->on("circulars");
-
             $table->bigInteger("student_log_id")->unsigned();
             $table->foreign("student_log_id")->references("id")->on("student_logs");
+
+            
+            $table->bigInteger("circular_id")->unsigned();
+            $table->foreign("circular_id")->references("id")->on("circulars");
 
             $table->timestamps();
             $table->softDeletes();

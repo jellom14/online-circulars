@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class StudentLog extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $fillable = ['student_id'];
 
     public function student() : ?BelongsTo{
         return $this->belongsTo(Student::class,'student_id');

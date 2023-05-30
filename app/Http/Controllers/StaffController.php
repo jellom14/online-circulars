@@ -2,32 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddStaffRequest;
+use App\Http\Requests\UpdateStaffRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
-class StaffController extends Controller
-{
-    public function create()
-    {
-        return view('create-staff');
+class StaffController extends Controller{
+
+    public function store(AddStaffRequest $request){ //CREATE ROLE
+ 
+        $user=new User($request->validated());
+        $user->save();
+
+        return response()->json($user,Response::HTTP_OK);
     }
 
-    public function store(Request $request)
-    {
-        $staff = new User;
-        $staff->first_name = $request->first_name;
-        $staff->last_name = $request->first_name;
-        $staff->middle_name = $request->first_name;
-        $staff->username = $request->first_name;
-        $staff->password = $request->first_name;
-        $staff->email = $request->first_name;
-        $staff->role_id = $request->role;
+    public function update($id,UpdateStaffRequest $request){ //UPDATE ROLE
+   
+        $user=User::find($id);
+        $user->update($request->validated());
         
-        $staff->save();
-        return redirect('create-staff');
+        return response()->json($user,Response::HTTP_OK);
+
     }
 
+    public function show($id){ //SHOW ROLE
+        $user=User::find($id);
 
+        return response()->json($user,Response::HTTP_OK);
+    }
+
+    public function destroy($id){ //DELETE ROLE
+        $user=User::find($id);
+        $user->delete();
+
+        return response()->json($user,Response::HTTP_OK);
+    }
 }
+
+
+
+
 

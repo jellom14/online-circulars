@@ -12,7 +12,7 @@ class Circular extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'category_id', 'number', 'date', 'created_at', 'updated_at', 'created_at'];
+    protected $fillable = ['name', 'category_id', 'number', 'date'];
 
     public function category() : ?BelongsTo{
         return $this->belongsTo(Category::class,'category_id');
@@ -23,6 +23,10 @@ class Circular extends Model
     }
 
     public function staff_view_logs() : ?HasMany {
+        return $this->hasMany(StaffViewLog::class);
+    }
+
+    public function student_view_logs() : ?HasMany {
         return $this->hasMany(StaffViewLog::class);
     }
 

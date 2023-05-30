@@ -13,7 +13,7 @@ class Student extends Model
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    protected $fillable = ['last_name', 'first_name', 'middle_name', 'username', 'email', 'email_verified_at', 'password', 'remember_token', 'created_at', 'updated_at'];
+    protected $fillable = ['last_name', 'first_name', 'middle_name', 'username', 'email', 'password'];
 
     public function student_logs() : ?HasMany {
         return $this->hasMany(StudentLog::class);

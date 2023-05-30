@@ -2,26 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddCircularRequest;
+use App\Http\Requests\UpdateCircularRequest;
 use App\Models\Circular;
-use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CircularController extends Controller
 {
-    public function create()
-    {
-        return view('create-circular');
+    public function store(AddCircularRequest $request){ //CREATE ROLE
+ 
+        $circular=new Circular($request->validated());
+        $circular->save();
+
+        return response()->json($circular,Response::HTTP_OK);
     }
 
-    public function store(Request $request)
-    {
-        $circular = new Circular;
-        $circular->category_id= $request->category_id;
-        $circular->name = $request->name;
-        $circular->number = $request->category_id;
-        $circular->date = $request->date;
-
+    public function update($id,UpdateCircularRequest $request){ //UPDATE ROLE
+   
+        $circular=Circular::find($id);
+        $circular->update($request->validated());
         
-        $circular->save();
-        return redirect('create-circular');
+        return response()->json($circular,Response::HTTP_OK);
+
+    }
+
+    public function show($id){ //SHOW ROLE
+        $circular=Circular::find($id);
+
+        return response()->json($circular,Response::HTTP_OK);
+    }
+
+    public function destroy($id){ //DELETE ROLE
+        $circular=Circular::find($id);
+        $circular->delete();
+
+        return response()->json($circular,Response::HTTP_OK);
     }
 }

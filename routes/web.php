@@ -25,22 +25,3 @@ Route::get('/', function () {
 }); 
 */
 
-
-Route::get('/', function () {
-    return view('create-role');
-});
-
-Route::get('create-role', [RoleController::class, 'create']);
-Route::post('role-form', [RoleController::class, 'store']);
-
-Route::get('create-staff', [StaffController::class, 'create']);
-Route::post('staff-form', [StaffController::class, 'store']);
-
-Route::get('create-student', [StudentController::class, 'create']);
-Route::post('student-form', [StudentController::class, 'store']);
-
-Route::get('create-category', [CategoryController::class, 'create']);
-Route::post('category-form', [CategoryController::class, 'store']);
-
-Route::get('create-circular', [CircularController::class, 'create']);
-Route::post('circular-form', [CircularController::class, 'store']);
