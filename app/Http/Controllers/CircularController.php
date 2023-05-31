@@ -46,7 +46,7 @@ class CircularController extends Controller
         $pageSize = $request->page_size ?? 20;
         $circular = Circular::query()->paginate($pageSize);
     
-        return Category::name($circular);
+        return [$pageSize, $request, Category::name($circular)];
 
             // GET localhost/online=circulars/public/api/circular?page=1&search=test&category=1
 
