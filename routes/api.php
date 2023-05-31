@@ -93,7 +93,7 @@ Route::prefix('circular')->group(function(){
     Route::get('{id}/show', [CircularController::class, 'show']);
     Route::delete('{id}/destroy', [CircularController::class, 'destroy']);
 
-    Route::get('{id}/category', [UserController::class, 'index']);
+    Route::get('page={id}&search={name}&category{id}', [CircularController::class, 'index']);
 });
 
 Route::prefix('circularattachment')->group(function(){
