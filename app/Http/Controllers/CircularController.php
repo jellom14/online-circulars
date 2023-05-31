@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddCircularRequest;
 use App\Http\Requests\UpdateCircularRequest;
+use App\Models\Category;
 use App\Models\Circular;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CircularController extends Controller
@@ -38,4 +40,16 @@ class CircularController extends Controller
 
         return response()->json($circular,Response::HTTP_OK);
     }
+
+    public function index(Request $request){ // search
+        
+        $pageSize = $request->page_size ?? 20;
+        $circular = Circular::query()->paginate($pageSize);
+    
+        return Category::name($circular);
+
+            // GET localhost/online=circulars/public/api/circular?page=1&search=test&category=1
+
+    }
+
 }
