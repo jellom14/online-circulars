@@ -52,10 +52,11 @@ class CircularController extends Controller
         ->where("category_id", 2)
         ->with("category")
         ->paginate($pageSize);
+        
+         return  response()->json($circular, Response::HTTP_OK);
 
         //dd($request->all());
-        return  response()->json($circular, Response::HTTP_OK);
-
+    
         //GET localhost/online=circulars/public/api/circular?page=1&search=test&category=1
 
     }

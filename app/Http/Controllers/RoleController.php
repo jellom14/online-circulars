@@ -44,4 +44,20 @@ class RoleController extends Controller{
 
         return response()->json($role,Response::HTTP_OK);
     }
+
+    public function index(Request $request){ // search
+        
+        $pageSize = $request->page_size ?? 20;
+
+        $role = Role::query()
+        ->where("name", "LIKE", "%Hobo%")
+        ->paginate($pageSize);
+        
+         return  response()->json($role, Response::HTTP_OK);
+
+        //dd($request->all());
+    
+        //GET localhost/online=circulars/public/api/circular?page=1&search=test&category=1
+
+    }
 }

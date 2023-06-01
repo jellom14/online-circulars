@@ -36,6 +36,8 @@ Route::prefix('role')->group(function(){
     Route::put('{id}/update', [RoleController::class, 'update']);
     Route::get('{id}/show', [RoleController::class, 'show']);
     Route::delete('{id}/destroy', [RoleController::class, 'destroy']);
+
+    Route::get('/', [RoleController::class, 'index']);
 });
 
 Route::prefix('staff')->group(function(){

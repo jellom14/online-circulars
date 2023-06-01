@@ -57,7 +57,7 @@ class CategoryController extends Controller
 
         //dd($request->all());
     
-        //GET localhost/online=circulars/public/api/circular?page=1&search=test&category=1
+        
 
     }
 }
