@@ -44,11 +44,19 @@ class CircularController extends Controller
     public function index(Request $request){ // search
         
         $pageSize = $request->page_size ?? 20;
-        $circular = Circular::query()->paginate($pageSize);
-    
-        return [$pageSize, $request, Category::name($circular)];
+        // $circular = Circular::query()->with("category")->paginate($pageSize);
 
-            // GET localhost/online=circulars/public/api/circular?page=1&search=test&category=1
+
+        $circular = Circular::query()
+        ->where("name", "LIKE", "%MyCirc%")
+        ->where("category_id", 2)
+        ->with("category")
+        ->paginate($pageSize);
+
+        //dd($request->all());
+        return  response()->json($circular, Response::HTTP_OK);
+
+        //GET localhost/online=circulars/public/api/circular?page=1&search=test&category=1
 
     }
 

@@ -43,6 +43,8 @@ Route::prefix('staff')->group(function(){
     Route::put('{id}/update', [StaffController::class, 'update']);
     Route::get('{id}/show', [StaffController::class, 'show']);
     Route::delete('{id}/destroy', [StaffController::class, 'destroy']);
+
+    Route::get('/', [StaffController::class, 'index']);
 });
 
 Route::prefix('student')->group(function(){
@@ -50,6 +52,8 @@ Route::prefix('student')->group(function(){
     Route::put('{id}/update', [StudentController::class, 'update']);
     Route::get('{id}/show', [StudentController::class, 'show']);
     Route::delete('{id}/destroy', [StudentController::class, 'destroy']);
+
+    Route::get('/', [StudentController::class, 'index']);
 });
 
 Route::prefix('stafflog')->group(function(){
@@ -85,6 +89,8 @@ Route::prefix('category')->group(function(){
     Route::put('{id}/update', [CategoryController::class, 'update']);
     Route::get('{id}/show', [CategoryController::class, 'show']);
     Route::delete('{id}/destroy', [CategoryController::class, 'destroy']);
+
+    Route::get('/', [CategoryController::class, 'index']);
 });
 
 Route::prefix('circular')->group(function(){
@@ -93,7 +99,7 @@ Route::prefix('circular')->group(function(){
     Route::get('{id}/show', [CircularController::class, 'show']);
     Route::delete('{id}/destroy', [CircularController::class, 'destroy']);
 
-    Route::get('page={id}&search={}&category={id}', [CircularController::class, 'index']);
+    Route::get('/', [CircularController::class, 'index']);
 });
 
 Route::prefix('circularattachment')->group(function(){
