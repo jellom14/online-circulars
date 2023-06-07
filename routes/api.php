@@ -97,7 +97,7 @@ Route::prefix('category')->group(function(){
 
 Route::prefix('circular')->group(function(){
     Route::post('store', [CircularController::class, 'store']);
-    Route::put('{id}/update', [CircularController::class, 'update']);
+    Route::post('{id}/update', [CircularController::class, 'update']);
     Route::get('{id}/show', [CircularController::class, 'show']);
     Route::delete('{id}/destroy', [CircularController::class, 'destroy']);
 
@@ -106,7 +106,7 @@ Route::prefix('circular')->group(function(){
 
 Route::prefix('circularattachment')->group(function(){
     Route::post('store', [CircularAttachmentController::class, 'store']);
-    Route::put('{id}/update', [CircularAttachmentController::class, 'update']);
+    Route::post('{id}/update', [CircularAttachmentController::class, 'update']);
     Route::get('{id}/show', [CircularAttachmentController::class, 'show']);
     Route::delete('{id}/destroy', [CircularAttachmentController::class, 'destroy']);
 });

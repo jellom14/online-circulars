@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('circulars', function (Blueprint $table) {
-            $table->unsignedBigInteger('created_by_id')->after('role_id')->nullable();
+            $table->unsignedBigInteger('created_by_id')->after('id')->nullable();
             $table->unsignedBigInteger('updated_by_id')->after('created_by_id')->nullable();
             $table->unsignedBigInteger('deleted_by_id')->after('updated_by_id')->nullable();
 

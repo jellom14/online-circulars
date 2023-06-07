@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign("circular_id")->references("id")->on("circulars");
 
             $table->string("name");
-            $table->integer("number");
+            $table->string("number");
             $table->date("date");
 
             $table->timestamps();
