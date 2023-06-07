@@ -25,7 +25,8 @@ class AddCircularRequest extends FormRequest
             'category_id'=>'required|max:20',
             'name'=>'required|max:20',
             'number'=>'required|max:20',
-            'date'=>'required|max:20'
+            'date'=>'required|max:20',
+            'file'=>''
         ];
     }
 }

@@ -13,6 +13,8 @@ class StudentViewLog extends Model
 
     protected $fillable = ['student_log_id, circular_id'];
 
+    protected $hidden = ['deleted_at'];
+
     public function student_log() : ?BelongsTo{
         return $this->belongsTo(StudentLog::class,'student_log_id');
     }

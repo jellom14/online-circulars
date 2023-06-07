@@ -14,8 +14,26 @@ class Circular extends Model
 
     protected $fillable = ['name', 'category_id', 'number', 'date'];
 
+    protected $hidden=['deleted_at'];
+
     public function category() : ?BelongsTo{
         return $this->belongsTo(Category::class,'category_id');
+    }
+
+    public function users() : ?BelongsTo{
+        return $this->belongsTo(User::class,'user_id');
+    }
+
+    public function userscreate() : ?BelongsTo{
+        return $this->belongsTo(User::class,'created_by_id');
+    }
+
+    public function usersupdate() : ?BelongsTo{
+        return $this->belongsTo(User::class,'updated_by_id');
+    }
+
+    public function usersdelete() : ?BelongsTo{
+        return $this->belongsTo(User::class,'deleted_by_id');
     }
 
     public function circular_attachments() : ?HasMany {

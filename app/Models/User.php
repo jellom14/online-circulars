@@ -25,6 +25,26 @@ class User extends Model
     public function staff_logs() : ?HasMany {
         return $this->hasMany(StaffLog::class);
     }
+
+    public function circulars() : ?HasMany {
+        return $this->hasMany(Circular::class);
+    }
+
+    public function categories() : ?HasMany {
+        return $this->hasMany(Category::class);
+    }
+
+    public function students() : ?HasMany {
+        return $this->hasMany(Student::class);
+    }
+
+    public function roles() : ?HasMany {
+        return $this->hasMany(Role::class);
+    }
+
+    public function circular_attachments() : ?HasMany {
+        return $this->hasMany(CircularAttachment::class);
+    }
     
     /*
      * The attributes that are mass assignable.

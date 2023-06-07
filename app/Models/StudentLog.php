@@ -13,6 +13,8 @@ class StudentLog extends Model
     use HasFactory, SoftDeletes;
     protected $fillable = ['student_id'];
 
+    protected $hidden = ['deleted_at'];
+
     public function student() : ?BelongsTo{
         return $this->belongsTo(Student::class,'student_id');
     }

@@ -12,10 +12,12 @@ use Symfony\Component\HttpFoundation\Response;
 class CircularController extends Controller
 {
     public function store(AddCircularRequest $request){ //CREATE ROLE
- 
         $circular=new Circular($request->validated());
+        // $circular->createdBy()->associate(1);
         $circular->save();
-
+        if($circular){
+            $request->file->storeAs("circulars/{$circular->id}","{$circular->id}.pdf");   
+        }
         return response()->json($circular,Response::HTTP_OK);
     }
 

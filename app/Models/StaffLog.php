@@ -14,6 +14,8 @@ class StaffLog extends Model
 
     protected $fillable = ['user_id'];
 
+    protected $hidden = ['deleted_at'];
+
     public function staff() : ?BelongsTo{
         return $this->belongsTo(User::class,'user_id');
     }

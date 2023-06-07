@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign("category_id")->references("id")->on("categories");
 
             $table->string("name");
-            $table->integer("number");
+            $table->string("number");
             $table->date("date");
 
             $table->timestamps();
