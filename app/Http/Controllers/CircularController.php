@@ -60,13 +60,16 @@ class CircularController extends Controller
         $circular=Circular::find($id);
         $circular->delete();
 
-        $file="{$circular->id}.pdf";
+        $file = "{$circular->id}.pdf";
         $dest = "circulars/{$circular->id}";
-        $dest2 = "circulars/{$circular->id}/circularattachments";
+        $dest2 = "circularattachments";
 
         if(Storage::exists("$dest/$file")){
         Storage::delete("$dest/$file");
-        Storage::delete("$dest/$dest2");
+        }
+
+        if(Storage::exists("$dest/$dest2")){
+            Storage::deleteDirectory("$dest/$dest2");
         }
 
         return response()->json($circular,Response::HTTP_OK);

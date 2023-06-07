@@ -31,8 +31,8 @@ class CircularAttachmentController extends Controller
    
         $circularattachment=CircularAttachment::findOrFail($id);
         
-        $file="{$circularattachment->id}.pdf";
-        $dest = "circulars/circularattachments/{$circularattachment->id}";
+        $file = "{$circularattachment->id}.pdf";
+        $dest = "circulars/{$circularattachment->circular_id}/circularattachments/{$circularattachment->id}";
         
         $circularattachment->update($request->validated());
 
