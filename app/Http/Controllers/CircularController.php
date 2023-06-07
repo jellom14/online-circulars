@@ -14,8 +14,9 @@ class CircularController extends Controller
 {
     public function store(AddCircularRequest $request){ //CREATE ROLE
         $circular=new Circular($request->validated());
-        // $circular->createdBy()->associate(1);
-
+        $circular->userscreate()->associate(1);
+        $circular->usersupdate()->associate(1);
+        $circular->usersdelete()->associate(1);
         
         $circular->save();
         if($circular){

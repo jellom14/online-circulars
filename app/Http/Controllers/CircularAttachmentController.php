@@ -14,6 +14,9 @@ class CircularAttachmentController extends Controller
     public function store(AddCircularAttachmentRequest $request){ //CREATE ROLE
  
         $circularattachment=new CircularAttachment($request->validated());
+        $circularattachment->userscreate()->associate(1);
+        $circularattachment->usersupdate()->associate(1);
+        $circularattachment->usersdelete()->associate(1);
         $circularattachment->save();
         
         
