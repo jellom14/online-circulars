@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddCircularRequest;
 use App\Http\Requests\UpdateCircularRequest;
 use App\Models\Circular;
+use App\Models\CircularAttachment;
 use Storage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,6 +54,20 @@ class CircularController extends Controller
     public function show($id){ //SHOW ROLE
         $circular=Circular::find($id);
 
+        $filePath = "circulars/{$circular->id}/{$circular->id}.pdf";
+
+        if (Storage::exists($filePath)) {
+
+            $fileContent = Storage::get($filePath);
+    
+            // Create a response with the file contents as the body
+            $response = response($fileContent, Response::HTTP_OK);
+            $response->header('Content-Type', 'application/pdf');
+    
+            return $response;
+        }
+
+        
         return response()->json($circular,Response::HTTP_OK);
     }
 
@@ -64,12 +79,29 @@ class CircularController extends Controller
         $dest = "circulars/{$circular->id}";
         $dest2 = "circularattachments";
 
+
         if(Storage::exists("$dest/$file")){
         Storage::delete("$dest/$file");
+       
+        $attachments = Storage::allFiles("$dest/$dest2");
+
+        foreach ($attachments as $attachment) {
+            $filename = pathinfo($attachment)['filename'];
+            $attachmentModel = CircularAttachment::where('name', $filename)
+                ->where('circular_id', $circular->id)
+                ->first();
+
+            if ($attachmentModel) {
+                $attachmentModel->delete();
+            }
+        }
+        
+
         }
 
         if(Storage::exists("$dest/$dest2")){
             Storage::deleteDirectory("$dest/$dest2");
+
         }
 
         return response()->json($circular,Response::HTTP_OK);

@@ -21,7 +21,7 @@ class CircularAttachmentController extends Controller
         
         
         if($circularattachment){
-            $request->file->storeAs("circulars/{$circularattachment->circular_id}/circularattachments/{$circularattachment->id}","{$circularattachment->id}.pdf");   
+            $request->file->storeAs("circulars/{$circularattachment->circular_id}/circularattachments","{$circularattachment->name}.pdf");   
         }
 
         return response()->json($circularattachment,Response::HTTP_OK);
@@ -31,8 +31,8 @@ class CircularAttachmentController extends Controller
    
         $circularattachment=CircularAttachment::findOrFail($id);
         
-        $file = "{$circularattachment->id}.pdf";
-        $dest = "circulars/{$circularattachment->circular_id}/circularattachments/{$circularattachment->id}";
+        $file = "{$circularattachment->name}.pdf";
+        $dest = "circulars/{$circularattachment->circular_id}/circularattachments";
         
         $circularattachment->update($request->validated());
 
@@ -54,6 +54,19 @@ class CircularAttachmentController extends Controller
     public function show($id){ //SHOW ROLE
         $circularattachment=CircularAttachment::find($id);
 
+
+        $filePath = "circulars/{$circularattachment->circular_id}/circularattachments/{$circularattachment->name}.pdf";
+        
+        if (Storage::exists($filePath)) {
+         
+            $fileContent = Storage::get($filePath);
+    
+            $response = response($fileContent, Response::HTTP_OK);
+            $response->header('Content-Type', 'application/pdf');
+    
+            return $response;
+        }
+
         return response()->json($circularattachment,Response::HTTP_OK);
     }
 
@@ -61,8 +74,8 @@ class CircularAttachmentController extends Controller
         $circularattachment=CircularAttachment::find($id);
         $circularattachment->delete();
 
-        $file="{$circularattachment->id}.pdf";
-        $dest = "circulars/{$circularattachment->circular_id}/circularattachments/{$circularattachment->id}";
+        $file="{$circularattachment->name}.pdf";
+        $dest = "circulars/{$circularattachment->circular_id}/circularattachments";
 
         if(Storage::exists("$dest/$file")){
         Storage::delete("$dest/$file");

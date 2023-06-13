@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger("category_id")->unsigned();
             $table->foreign("category_id")->references("id")->on("categories");
 
-            $table->string("name");
+            $table->string("name")->unique();
             $table->string("number");
             $table->date("date");
 
