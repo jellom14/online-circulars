@@ -11,12 +11,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CircularAttachmentController extends Controller
 {
-    public function store(AddCircularAttachmentRequest $request){ //CREATE ROLE
+    public function store(AddCircularAttachmentRequest $request){ //CREATE 
  
         $circularattachment=new CircularAttachment($request->validated());
-        $circularattachment->userscreate()->associate(1);
-        $circularattachment->usersupdate()->associate(1);
-        $circularattachment->usersdelete()->associate(1);
+
+        // $circularattachment->userscreate()->associate(1);
+        // $circularattachment->usersupdate()->associate(1);
+        // $circularattachment->usersdelete()->associate(1);
+
         $circularattachment->save();
         
         
@@ -27,7 +29,7 @@ class CircularAttachmentController extends Controller
         return response()->json($circularattachment,Response::HTTP_OK);
     }
 
-    public function update($id,UpdateCircularAttachmentRequest $request){ //UPDATE ROLE
+    public function update($id,UpdateCircularAttachmentRequest $request){ //UPDATE 
    
         $circularattachment=CircularAttachment::findOrFail($id);
         
@@ -44,25 +46,23 @@ class CircularAttachmentController extends Controller
             Storage::putFileAs($dest,$request->file('file'),$file);
         }
 
-        
         $circularattachment->update($request->validated());
         
         return response()->json($circularattachment,Response::HTTP_OK);
 
     }
 
-    public function show($id){ //SHOW ROLE
+    public function show($id){ //SHOW 
         $circularattachment=CircularAttachment::find($id);
-
 
         $filePath = "circulars/{$circularattachment->circular_id}/circularattachments/{$circularattachment->name}.pdf";
         
         if (Storage::exists($filePath)) {
          
-            $fileContent = Storage::get($filePath);
+            $fileContent = base64_encode(Storage::get($filePath));
     
             $response = response($fileContent, Response::HTTP_OK);
-            $response->header('Content-Type', 'application/pdf');
+            //$response->header('Content-Type', 'application/pdf');
     
             return $response;
         }
@@ -70,7 +70,7 @@ class CircularAttachmentController extends Controller
         return response()->json($circularattachment,Response::HTTP_OK);
     }
 
-    public function destroy($id){ //DELETE ROLE
+    public function destroy($id){ //DELETE
         $circularattachment=CircularAttachment::find($id);
         $circularattachment->delete();
 

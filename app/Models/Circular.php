@@ -50,5 +50,5 @@ class Circular extends Model
 
     //Circulars::with(['category'])
     //Category::with('circulars')
-    
+  
 }

@@ -14,12 +14,14 @@ use Symfony\Component\HttpFoundation\Response;
 class CircularController extends Controller
 {
     public function store(AddCircularRequest $request){ //CREATE ROLE
-        $circular=new Circular($request->validated());
-        $circular->userscreate()->associate(1);
-        $circular->usersupdate()->associate(1);
-        $circular->usersdelete()->associate(1);
+        $circular = new Circular($request->validated());
+
+        // $circular->userscreate()->associate(1);
+        // // $circular->usersupdate()->associate(1);
+        // // $circular->usersdelete()->associate(1);
         
         $circular->save();
+
         if($circular){
             $request->file->storeAs("circulars/{$circular->id}","{$circular->id}.pdf");   
         }
@@ -41,6 +43,7 @@ class CircularController extends Controller
             if(Storage::exists("$dest/$file")){
                 Storage::delete("$dest/$file");
             } 
+
             Storage::putFileAs($dest,$request->file('file'),$file);
         }
 
@@ -57,53 +60,38 @@ class CircularController extends Controller
         $filePath = "circulars/{$circular->id}/{$circular->id}.pdf";
 
         if (Storage::exists($filePath)) {
+   
+            $fileContent = base64_encode(Storage::get($filePath));
 
-            $fileContent = Storage::get($filePath);
-    
-            // Create a response with the file contents as the body
             $response = response($fileContent, Response::HTTP_OK);
-            $response->header('Content-Type', 'application/pdf');
+            //$response->header('Content-Type', 'application/pdf');
     
             return $response;
         }
-
         
         return response()->json($circular,Response::HTTP_OK);
     }
 
     public function destroy($id){ //DELETE ROLE
         $circular=Circular::find($id);
-        $circular->delete();
 
-        $file = "{$circular->id}.pdf";
+        CircularAttachment::where('circular_id',$circular->id)->delete(); //softdelete circ attach
+
+        $file="{$circular->id}.pdf";
         $dest = "circulars/{$circular->id}";
         $dest2 = "circularattachments";
 
-
-        if(Storage::exists("$dest/$file")){
-        Storage::delete("$dest/$file");
-       
-        $attachments = Storage::allFiles("$dest/$dest2");
-
-        foreach ($attachments as $attachment) {
-            $filename = pathinfo($attachment)['filename'];
-            $attachmentModel = CircularAttachment::where('name', $filename)
-                ->where('circular_id', $circular->id)
-                ->first();
-
-            if ($attachmentModel) {
-                $attachmentModel->delete();
-            }
-        }
-        
-
-        }
-
-        if(Storage::exists("$dest/$dest2")){
+        if(Storage::exists("$dest/$dest2")){ //delete circ attach directory
             Storage::deleteDirectory("$dest/$dest2");
 
         }
 
+        $circular->delete();
+
+        if(Storage::exists("$dest/$file")){ //delete circular file
+            Storage::delete("$dest/$file");
+            }
+        
         return response()->json($circular,Response::HTTP_OK);
     }
 
