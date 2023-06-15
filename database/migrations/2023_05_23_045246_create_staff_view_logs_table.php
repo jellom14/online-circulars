@@ -15,6 +15,14 @@ return new class extends Migration
         Schema::create('staff_view_logs', function (Blueprint $table) {
             $table->id();
             
+            $table->unsignedBigInteger('created_by_id')->nullable();
+            $table->unsignedBigInteger('updated_by_id')->nullable();
+            $table->unsignedBigInteger('deleted_by_id')->nullable();
+
+            $table->foreign('created_by_id')->references('id')->on('users');
+            $table->foreign('updated_by_id')->references('id')->on('users');
+            $table->foreign('deleted_by_id')->references('id')->on('users');
+
             $table->bigInteger("staff_log_id")->unsigned();
             $table->foreign("staff_log_id")->references("id")->on("staff_logs");
 

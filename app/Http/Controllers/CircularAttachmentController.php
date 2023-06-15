@@ -14,13 +14,8 @@ class CircularAttachmentController extends Controller
     public function store(AddCircularAttachmentRequest $request){ //CREATE 
  
         $circularattachment=new CircularAttachment($request->validated());
-
-        // $circularattachment->userscreate()->associate(1);
-        // $circularattachment->usersupdate()->associate(1);
-        // $circularattachment->usersdelete()->associate(1);
-
+        $circularattachment->circular()->associate($request->circular_id);
         $circularattachment->save();
-        
         
         if($circularattachment){
             $request->file->storeAs("circulars/{$circularattachment->circular_id}/circularattachments","{$circularattachment->name}.pdf");   

@@ -15,6 +15,10 @@ class CircularAttachment extends Model
 
     protected $hidden = ['deleted_at'];
 
+    public function circular() : ?BelongsTo{
+        return $this->belongsTo(Circular::class,'circular_id');
+    }
+
     public function userscreate() : ?BelongsTo{
         return $this->belongsTo(User::class,'created_by_id');
     }
@@ -27,7 +31,5 @@ class CircularAttachment extends Model
         return $this->belongsTo(User::class,'deleted_by_id');
     }
     
-    public function circular() : ?BelongsTo{
-        return $this->belongsTo(circular::class,'circular_id');
-    }
+
 }

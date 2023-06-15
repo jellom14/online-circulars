@@ -15,12 +15,20 @@ return new class extends Migration
         Schema::create('student_view_logs', function (Blueprint $table) {
             $table->id();
 
+            $table->unsignedBigInteger('created_by_id')->nullable();
+            $table->unsignedBigInteger('updated_by_id')->nullable();
+            $table->unsignedBigInteger('deleted_by_id')->nullable();
+
+            $table->foreign('created_by_id')->references('id')->on('users');
+            $table->foreign('updated_by_id')->references('id')->on('users');
+            $table->foreign('deleted_by_id')->references('id')->on('users');
+
             $table->bigInteger("student_log_id")->unsigned();
             $table->foreign("student_log_id")->references("id")->on("student_logs");
 
-            
             $table->bigInteger("circular_id")->unsigned();
             $table->foreign("circular_id")->references("id")->on("circulars");
+
 
             $table->timestamps();
             $table->softDeletes();

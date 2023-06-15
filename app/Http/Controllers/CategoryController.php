@@ -10,6 +10,7 @@ class CategoryController extends Controller
 {
   
     public function store(Request $request){ //CREATE ROLE
+
         $validated=$request->validate([
             'name'=>'required|max:20',
         ]);
@@ -21,13 +22,14 @@ class CategoryController extends Controller
     }
 
     public function update($id,Request $request){ //UPDATE ROLE
+        
         $validated=$request->validate([
-            'name'=>'required|max:20',
+            'name'=>'required|max:20'
         ]);
         
-        $category=Category::find($id);
-        $category->update($validated);
-        
+       $category=Category::find($id);
+       $category->update($validated);
+
         return response()->json($category,Response::HTTP_OK);
 
     }
@@ -41,7 +43,7 @@ class CategoryController extends Controller
     public function destroy($id){ //DELETE ROLE
         $category=Category::find($id);
         $category->delete();
-
+        
         return response()->json($category,Response::HTTP_OK);
     }
 

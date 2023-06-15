@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +27,7 @@ class Role extends Model
     public function usersdelete() : ?BelongsTo{
         return $this->belongsTo(User::class,'deleted_by_id');
     }
-    
+
     public function staff() : ?HasMany {
         return $this->hasMany(User::class);
     }
