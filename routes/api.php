@@ -13,7 +13,8 @@ use App\Http\Controllers\{
     StudentViewLogController,
     CategoryController,
     CircularController,
-    CircularAttachmentController
+    CircularAttachmentController,
+    AuthenticationController
 };
 
 /*
@@ -30,6 +31,8 @@ use App\Http\Controllers\{
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/test-login', AuthenticationController::class);
 
 Route::prefix('role')->group(function(){
     Route::post('store', [RoleController::class, 'store']);

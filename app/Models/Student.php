@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Student extends Model
-{
+class Student extends Authenticatable {
+
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
     
     protected $fillable = ['last_name', 'first_name', 'middle_name', 'username', 'email', 'password'];
