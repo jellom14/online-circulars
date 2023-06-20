@@ -10,7 +10,7 @@ class StaffLogController extends Controller
 {
     public function store(Request $request){ //CREATE ROLE
         $validated=$request->validate([
-            'user_id'=>'required|max:20',
+            'user_id'=>'required|max:20', 
         ]);
 
         $stafflog=new StaffLog($validated);

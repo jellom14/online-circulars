@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('staff_logs', function (Blueprint $table) {
             $table->id();
-
+            
             $table->unsignedBigInteger('created_by_id')->nullable();
             $table->unsignedBigInteger('updated_by_id')->nullable();
             $table->unsignedBigInteger('deleted_by_id')->nullable();

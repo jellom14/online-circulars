@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('middle_name');
             $table->string('username');
             $table->string('email')->unique();
-            $table->bigInteger("role_id")->unsigned();
+            $table->bigInteger("role_id")->unsigned()->nullable();
             $table->foreign("role_id")->references("id")->on("roles");
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

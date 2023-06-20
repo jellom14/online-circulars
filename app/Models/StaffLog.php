@@ -24,4 +24,16 @@ class StaffLog extends Model
         return $this->hasMany(StaffViewLog::class);
     }
 
+    public function userscreate() : ?BelongsTo{
+        return $this->belongsTo(User::class,'created_by_id');
+    }
+
+    public function usersupdate() : ?BelongsTo{
+        return $this->belongsTo(User::class,'updated_by_id');
+    }
+
+    public function usersdelete() : ?BelongsTo{
+        return $this->belongsTo(User::class,'deleted_by_id');
+    }
+
 }

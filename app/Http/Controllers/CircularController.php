@@ -71,8 +71,6 @@ class CircularController extends Controller
     public function destroy($id){ //DELETE ROLE
         $circular=Circular::find($id);
 
-        CircularAttachment::where('circular_id',$circular->id)->delete(); //softdelete circ attach
-
         $file="{$circular->id}.pdf";
         $dest = "circulars/{$circular->id}";
         $dest2 = "circularattachments";
@@ -93,9 +91,10 @@ class CircularController extends Controller
 
     public function index(Request $request){ // search
         
-        $pageSize = $request->page_size ?? 20;
+     
         // $circular = Circular::query()->with("category")->paginate($pageSize);
 
+        $pageSize = 20;
 
         $circular = Circular::query()
         ->where("name", "LIKE", "%MyCirc%")

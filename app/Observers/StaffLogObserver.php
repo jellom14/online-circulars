@@ -49,20 +49,20 @@ class StaffLogObserver
     public function creating(StaffLog $staffLog) : void {
         
 
-        $staffLog->userscreate()->associate(4); 
+        $staffLog->userscreate()->associate(null); 
 
     }
 
     public function updating(StaffLog $staffLog) : void {
 
         
-        $staffLog->usersupdate()->associate(4);
+        $staffLog->usersupdate()->associate(null);
 
     }
 
     public function deleting(StaffLog $staffLog) : void {
        
-        $staffLog->usersdelete()->associate(4);
+        $staffLog->usersdelete()->associate(null);
         $staffLog->save();
 
     }

@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\StaffLog;
 use App\Models\User;
 
 class StaffObserver
@@ -48,22 +49,33 @@ class StaffObserver
 
     public function creating(User $user) : void {
         
-
-        $user->userscreate()->associate(3); 
-
+   
+        $user->userscreate()->associate(null); 
     }
 
     public function updating(User $user) : void {
 
-        
-        $user->usersupdate()->associate(3);
+        $user->usersupdate()->associate(null);
 
     }
 
     public function deleting(User $user) : void {
        
-        $user->usersdelete()->associate(3);
+        $user->usersdelete()->associate(null);
         $user->save();
 
+        $user->circular_attachments->delete();
     }
+
+
+    public function retrieved(User $user) : void {
+
+        $id = $user->id;
+        
+        //create logs for stafflogs
+        $stafflog=new StaffLog();
+        $stafflog->staff()->associate($id);
+        $stafflog->save();
+    }
+
 }

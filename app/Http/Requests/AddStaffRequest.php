@@ -25,7 +25,9 @@ class AddStaffRequest extends FormRequest
             'first_name'=>'required|max:20', 'last_name'=>'required|max:20',
             'middle_name'=>'required|max:20', 'username'=>'required|max:20',
             'password'=>'required|max:20', 'email'=>'required|max:50',
-            'role_id'=>'required|max:20'
+            'role_id'=>'nullable', 'created_by_id'=>'nullable',
+            'updated_by_id'=>'nullable', 'deleted_by_id'=>'nullable',
+             
         ];
     }
 }

@@ -27,7 +27,8 @@ class CircularAttachmentObserver
      */
     public function deleted(CircularAttachment $circularAttachment): void
     {
-        //
+
+
     }
 
     /**
@@ -48,7 +49,6 @@ class CircularAttachmentObserver
 
     public function creating(CircularAttachment $circularattachment) : void {
         
-        $circularattachment->circular()->associate($circularattachment->circular_id);
         $circularattachment->userscreate()->associate(4); 
 
     }
@@ -63,7 +63,7 @@ class CircularAttachmentObserver
        
         $circularattachment->usersdelete()->associate(4);
         $circularattachment->save();
-
+    
     }
 
 

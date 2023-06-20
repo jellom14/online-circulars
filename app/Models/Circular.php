@@ -37,7 +37,7 @@ class Circular extends Model
     }
 
     public function circular_attachments() : ?HasMany {
-        return $this->hasMany(CircularAttachment::class);
+        return $this->hasMany(CircularAttachment::class,'circular_id');
     }
 
     public function staff_view_logs() : ?HasMany {

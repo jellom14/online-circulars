@@ -2,7 +2,9 @@
 
 namespace App\Observers;
 
+use App\Models\StaffLog;
 use App\Models\Student;
+use App\Models\StudentLog;
 
 class StudentObserver
 {
@@ -48,21 +50,35 @@ class StudentObserver
     public function creating(Student $student) : void {
         
 
-        $student->userscreate()->associate(4); 
+        $student->userscreate()->associate(2); 
 
     }
 
     public function updating(Student $student) : void {
 
         
-        $student->usersupdate()->associate(4);
+        $student->usersupdate()->associate(2);
 
     }
 
     public function deleting(Student $student) : void {
        
-        $student->usersdelete()->associate(4);
+        $student->usersdelete()->associate(2);
         $student->save();
 
     }
+
+    public function retrieved(Student $student) : void {
+
+        $id = $student->id;
+        
+        //create logs for studentlogs
+        $studentlog=new StudentLog();
+        $studentlog->student()->associate($id);
+        $studentlog->save();
+
+    }
+
+
+
 }

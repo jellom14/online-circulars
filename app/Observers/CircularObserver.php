@@ -64,18 +64,12 @@ class CircularObserver
 
 
     public function deleting(Circular $circular): void {
-        echo $circular->id;
-
-        $circularattachments = $circular->circular_attachments();
-    
-        foreach ($circularattachments as $circularattachment) {
-            echo $circular->id;
-            $circularattachment->usersdelete()->associate(4); 
-            $circularattachment->save();
-        }
-    
-        $circular->usersdelete()->associate(4); 
+        
+        $circular->usersdelete()->associate(4);
         $circular->save();
+
+        $circular->circular_attachments->each->delete();
+        
     }
     
     
