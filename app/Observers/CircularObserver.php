@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Circular;
 use App\Models\CircularAttachment;
+use App\Models\StaffLog;
 use Illuminate\Support\Facades\Storage;
 
 class CircularObserver
@@ -53,25 +54,31 @@ class CircularObserver
 
     public function creating(Circular $circular) : void {
         
-        $circular->userscreate()->associate(4); 
+        $circular->userscreate()->associate(1); 
     }
 
     public function updating(Circular $circular) : void {
 
-        $circular->usersupdate()->associate(4);
+        $circular->usersupdate()->associate(1);
 
     }
 
 
     public function deleting(Circular $circular): void {
         
-        $circular->usersdelete()->associate(4);
+        $circular->usersdelete()->associate(1);
         $circular->save();
 
         $circular->circular_attachments->each->delete();
+
         
     }
     
-    
+    public function retrieved(Circular $circular) : void {
+
+
+    }
+
+
 
 }

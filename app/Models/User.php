@@ -17,6 +17,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
     
     protected $fillable = ['last_name', 'first_name', 'middle_name', 'username', 'email', 'role_id', 'password'];
+    
 
     public function role() : ?BelongsTo{
         return $this->belongsTo(Role::class,'role_id');
@@ -75,6 +76,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
+        'name',
         'password',
         'remember_token',
     ];

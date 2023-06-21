@@ -6,6 +6,11 @@ use App\Http\Requests\AddCircularRequest;
 use App\Http\Requests\UpdateCircularRequest;
 use App\Models\Circular;
 use App\Models\CircularAttachment;
+use App\Models\StaffViewLog;
+use App\Models\StudentViewLog;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Storage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,7 +55,7 @@ class CircularController extends Controller
 
 }
 
-    public function show($id){ //SHOW ROLE
+    public function show($id, Request $request){ //SHOW ROLE
         $circular=Circular::find($id);
 
         $filePath = "circulars/{$circular->id}/{$circular->id}.pdf";
@@ -60,13 +65,81 @@ class CircularController extends Controller
             $fileContent = base64_encode(Storage::get($filePath));
 
             $response = response($fileContent, Response::HTTP_OK);
-            //$response->header('Content-Type', 'application/pdf');
-    
-            return $response;
+            
+        
+        $token = request()->bearerToken();
+        
+
+
+        $user_id = DB::table('oauth_access_tokens')->where('id', $token)->value('user_id');
+
+        // then retrieve the user from it's primary key
+        $user = User::findOrFail($user_id);
+        echo $user;
+
+        if (Auth::guard('web')->check()) {
+            $user = Auth::guard('web')->user();
+            $email = $user->email;
+            echo "hello";
         }
         
-        return response()->json($circular,Response::HTTP_OK);
+        if (Auth::guard('student')->check()) {
+            $user = Auth::guard('student')->user();
+            $email = $user->email;
+            echo "hello";
+        }
+        
+            
+
+
+
+        // if(Auth::guard('student')->attempt($credentials)){
+        // config(['auth.guards.api.provider'=> 'users']);
+        // $user = Auth::guard('student')->user();
+        // dd($user);
+        // }
+        
+        
+        
+//         if ($token){
+//         //find user in staff
+//         $user = Auth::guard('web')->user();
+        
+//         //if user not found
+//         if (!$user){
+            
+//         //find user in student
+//         $user = Auth::guard('student')->user();
+//         $loggedid = $user->id;
+
+//         // create logs for staffviewlog for staff
+//         $staffviewlog = new StaffViewLog();
+//         $staffviewlog->circular()->associate($id);
+//         $staffviewlog->staff_log()->associate($loggedid);
+//         $staffviewlog->save();
+
+//         echo "STAFF";
+//     } 
+
+//         else {
+//             $user = Auth::guard('student')->user();
+//             $loggedid = $user->id;
+
+//             // create logs for studentviewlog for student
+//             $studentviewlog = new StudentViewLog();
+//             $studentviewlog->circular()->associate($id);
+//             $studentviewlog->student_log()->associate($loggedid);
+//             $studentviewlog->save();
+
+//             echo "STUDENT";
+//         }
+// }
+
+            return $response;
+
     }
+        return response()->json($circular,Response::HTTP_OK);
+}
 
     public function destroy($id){ //DELETE ROLE
         $circular=Circular::find($id);

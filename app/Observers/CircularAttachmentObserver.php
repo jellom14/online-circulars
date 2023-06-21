@@ -49,19 +49,19 @@ class CircularAttachmentObserver
 
     public function creating(CircularAttachment $circularattachment) : void {
         
-        $circularattachment->userscreate()->associate(4); 
+        $circularattachment->userscreate()->associate(1); 
 
     }
 
     public function updating(CircularAttachment $circularattachment) : void {
         
-        $circularattachment->usersupdate()->associate(4);
+        $circularattachment->usersupdate()->associate(1);
 
     }
 
     public function deleting(CircularAttachment $circularattachment) : void {
        
-        $circularattachment->usersdelete()->associate(4);
+        $circularattachment->usersdelete()->associate(1);
         $circularattachment->save();
     
     }

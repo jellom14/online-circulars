@@ -48,20 +48,20 @@ class RoleObserver
 
     public function creating(Role $role) : void {
         
-        $role->userscreate()->associate(3); 
+        $role->userscreate()->associate(1); 
 
     }
 
     public function updating(Role $role) : void {
 
         
-        $role->usersupdate()->associate(3);
+        $role->usersupdate()->associate(1);
 
     }
 
     public function deleting(Role $role) : void {
        
-        $role->usersdelete()->associate(3);
+        $role->usersdelete()->associate(1);
         $role->save();
 
     }

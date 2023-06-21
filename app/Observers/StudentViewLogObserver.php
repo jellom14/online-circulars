@@ -49,20 +49,20 @@ class StudentViewLogObserver
     public function creating(StudentViewLog $studentViewLog) : void {
         
 
-        $studentViewLog->userscreate()->associate(4); 
+        $studentViewLog->userscreate()->associate(null); 
 
     }
 
     public function updating(StudentViewLog $studentViewLog) : void {
 
         
-        $studentViewLog->usersupdate()->associate(4);
+        $studentViewLog->usersupdate()->associate(null);
 
     }
 
     public function deleting(StudentViewLog $studentViewLog) : void {
        
-        $studentViewLog->usersdelete()->associate(4);
+        $studentViewLog->usersdelete()->associate(null);
         $studentViewLog->save();
 
     }

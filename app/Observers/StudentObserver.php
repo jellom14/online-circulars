@@ -50,20 +50,20 @@ class StudentObserver
     public function creating(Student $student) : void {
         
 
-        $student->userscreate()->associate(2); 
+        $student->userscreate()->associate(1); 
 
     }
 
     public function updating(Student $student) : void {
 
         
-        $student->usersupdate()->associate(2);
+        $student->usersupdate()->associate(1);
 
     }
 
     public function deleting(Student $student) : void {
        
-        $student->usersdelete()->associate(2);
+        $student->usersdelete()->associate(1);
         $student->save();
 
     }

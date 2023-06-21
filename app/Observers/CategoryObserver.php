@@ -49,20 +49,20 @@ class CategoryObserver
     public function creating(Category $category) : void {
         
 
-        $category->userscreate()->associate(4); 
+        $category->userscreate()->associate(1); 
 
     }
 
     public function updating(Category $category) : void {
 
         
-        $category->usersupdate()->associate(4);
+        $category->usersupdate()->associate(1);
 
     }
 
     public function deleting(Category $category) : void {
        
-        $category->usersdelete()->associate(4);
+        $category->usersdelete()->associate(1);
         $category->save();
 
     }

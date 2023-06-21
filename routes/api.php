@@ -14,7 +14,8 @@ use App\Http\Controllers\{
     CategoryController,
     CircularController,
     CircularAttachmentController,
-    AuthenticationController
+    StaffAuthController,
+    StudentAuthController
 };
 
 /*
@@ -28,88 +29,122 @@ use App\Http\Controllers\{
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+//login
+Route::post('/staff-login', StaffAuthController::class);
+Route::post('/student-login', StudentAuthController::class);
+
+//verify login
+Route::middleware('auth:api')->get('/vuser', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/test-login', AuthenticationController::class);
-
-Route::prefix('role')->group(function(){
-    Route::post('store', [RoleController::class, 'store']);
-    Route::put('{id}/update', [RoleController::class, 'update']);
-    Route::get('{id}/show', [RoleController::class, 'show']);
-    Route::delete('{id}/destroy', [RoleController::class, 'destroy']);
-
-    Route::get('/', [RoleController::class, 'index']);
+Route::middleware('auth:api-student')->get('/vstudent', function (Request $request) {
+    return $request->user();
 });
 
-Route::prefix('staff')->group(function(){
-    Route::post('store', [StaffController::class, 'store']);
-    Route::put('{id}/update', [StaffController::class, 'update']);
-    Route::get('{id}/show', [StaffController::class, 'show']);
-    Route::delete('{id}/destroy', [StaffController::class, 'destroy']);
+//viewing of circular and circular attachment for both staff and student
+Route::middleware(['auth:api'])->group(function () {
+    Route::prefix('circular')->group(function(){
+        Route::get('{id}/show', [CircularController::class, 'show']);
 
-    Route::get('/', [StaffController::class, 'index']);
+    });
+    Route::prefix('circularattachment')->group(function(){
+        Route::get('{id}/show', [CircularAttachmentController::class, 'show']);
+    });
 });
 
-Route::prefix('student')->group(function(){
-    Route::post('store', [StudentController::class, 'store']);
-    Route::put('{id}/update', [StudentController::class, 'update']);
-    Route::get('{id}/show', [StudentController::class, 'show']);
-    Route::delete('{id}/destroy', [StudentController::class, 'destroy']);
+Route::middleware(['auth:api-student'])->group(function () {
+    Route::prefix('circular')->group(function(){
+        Route::get('{id}/show', [CircularController::class, 'show']);
 
-    Route::get('/', [StudentController::class, 'index']);
+    });
+    Route::prefix('circularattachment')->group(function(){
+        Route::get('{id}/show', [CircularAttachmentController::class, 'show']);
+    });
 });
 
-Route::prefix('stafflog')->group(function(){
-    Route::post('store', [StaffLogController::class, 'store']);
-    Route::put('{id}/update', [StaffLogController::class, 'update']);
-    Route::get('{id}/show', [StaffLogController::class, 'show']);
-    Route::delete('{id}/destroy', [StaffLogController::class, 'destroy']);
+//staff
+Route::middleware(['auth:api'])->group(function(){
+    Route::prefix('role')->group(function(){
+        Route::post('store', [RoleController::class, 'store']);
+        Route::put('{id}/update', [RoleController::class, 'update']);
+        Route::get('{id}/show', [RoleController::class, 'show']);
+        Route::delete('{id}/destroy', [RoleController::class, 'destroy']);
+    
+        Route::get('/', [RoleController::class, 'index']);
+    });
+    
+    Route::prefix('staff')->group(function(){
+        Route::post('store', [StaffController::class, 'store']);
+        Route::put('{id}/update', [StaffController::class, 'update']);
+        Route::get('{id}/show', [StaffController::class, 'show']);
+        Route::delete('{id}/destroy', [StaffController::class, 'destroy']);
+    
+        Route::get('/', [StaffController::class, 'index']);
+    });
+    
+    Route::prefix('student')->group(function(){
+        Route::post('store', [StudentController::class, 'store']);
+        Route::put('{id}/update', [StudentController::class, 'update']);
+        Route::get('{id}/show', [StudentController::class, 'show']);
+        Route::delete('{id}/destroy', [StudentController::class, 'destroy']);
+    
+        Route::get('/', [StudentController::class, 'index']);
+    });
+    
+    Route::prefix('stafflog')->group(function(){
+        Route::post('store', [StaffLogController::class, 'store']);
+        Route::put('{id}/update', [StaffLogController::class, 'update']);
+        Route::get('{id}/show', [StaffLogController::class, 'show']);
+        Route::delete('{id}/destroy', [StaffLogController::class, 'destroy']);
+    });
+    
+    Route::prefix('studentlog')->group(function(){
+        Route::post('store', [StudentLogController::class, 'store']);
+        Route::put('{id}/update', [StudentLogController::class, 'update']);
+        Route::get('{id}/show', [StudentLogController::class, 'show']);
+        Route::delete('{id}/destroy', [StudentLogController::class, 'destroy']);
+    });
+    Route::prefix('category')->group(function(){
+        Route::post('store', [CategoryController::class, 'store']);
+        Route::put('{id}/update', [CategoryController::class, 'update']);
+        Route::get('{id}/show', [CategoryController::class, 'show']);
+        Route::delete('{id}/destroy', [CategoryController::class, 'destroy']);
+    
+        Route::get('/', [CategoryController::class, 'index']);
+    });
+    
+    Route::prefix('circular')->group(function(){
+        Route::post('store', [CircularController::class, 'store']);
+        Route::post('{id}/update', [CircularController::class, 'update']);
+        Route::delete('{id}/destroy', [CircularController::class, 'destroy']);
+    
+        Route::get('/', [CircularController::class, 'index']);
+    });
+    
+    Route::prefix('circularattachment')->group(function(){
+        Route::post('store', [CircularAttachmentController::class, 'store']);
+        Route::post('{id}/update', [CircularAttachmentController::class, 'update']);
+        Route::delete('{id}/destroy', [CircularAttachmentController::class, 'destroy']);
+    });
+
+    
+    Route::prefix('staffviewlog')->group(function(){
+            Route::post('store', [StaffViewLogController::class, 'store']);
+            Route::put('{id}/update', [StaffViewLogController::class, 'update']);
+            Route::get('{id}/show', [StaffViewLogController::class, 'show']);
+            Route::delete('{id}/destroy', [StaffViewLogController::class, 'destroy']);
+     });
+
+    Route::prefix('studentviewlog')->group(function(){
+        Route::post('store', [StudentViewLogController::class, 'store']);
+        Route::put('{id}/update', [StudentViewLogController::class, 'update']);
+        Route::get('{id}/show', [StudentViewLogController::class, 'show']);
+        Route::delete('{id}/destroy', [StudentViewLogController::class, 'destroy']);
+    });
 });
 
-Route::prefix('studentlog')->group(function(){
-    Route::post('store', [StudentLogController::class, 'store']);
-    Route::put('{id}/update', [StudentLogController::class, 'update']);
-    Route::get('{id}/show', [StudentLogController::class, 'show']);
-    Route::delete('{id}/destroy', [StudentLogController::class, 'destroy']);
-});
-
-Route::prefix('staffviewlog')->group(function(){
-    Route::post('store', [StaffViewLogController::class, 'store']);
-    Route::put('{id}/update', [StaffViewLogController::class, 'update']);
-    Route::get('{id}/show', [StaffViewLogController::class, 'show']);
-    Route::delete('{id}/destroy', [StaffViewLogController::class, 'destroy']);
-});
-
-Route::prefix('studentviewlog')->group(function(){
-    Route::post('store', [StudentViewLogController::class, 'store']);
-    Route::put('{id}/update', [StudentViewLogController::class, 'update']);
-    Route::get('{id}/show', [StudentViewLogController::class, 'show']);
-    Route::delete('{id}/destroy', [StudentViewLogController::class, 'destroy']);
-});
-
-Route::prefix('category')->group(function(){
-    Route::post('store', [CategoryController::class, 'store']);
-    Route::put('{id}/update', [CategoryController::class, 'update']);
-    Route::get('{id}/show', [CategoryController::class, 'show']);
-    Route::delete('{id}/destroy', [CategoryController::class, 'destroy']);
-
-    Route::get('/', [CategoryController::class, 'index']);
-});
-
-Route::prefix('circular')->group(function(){
-    Route::post('store', [CircularController::class, 'store']);
-    Route::post('{id}/update', [CircularController::class, 'update']);
-    Route::get('{id}/show', [CircularController::class, 'show']);
-    Route::delete('{id}/destroy', [CircularController::class, 'destroy']);
-
-    Route::get('/', [CircularController::class, 'index']);
-});
-
-Route::prefix('circularattachment')->group(function(){
-    Route::post('store', [CircularAttachmentController::class, 'store']);
-    Route::post('{id}/update', [CircularAttachmentController::class, 'update']);
-    Route::get('{id}/show', [CircularAttachmentController::class, 'show']);
-    Route::delete('{id}/destroy', [CircularAttachmentController::class, 'destroy']);
-});

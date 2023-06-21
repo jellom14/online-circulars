@@ -68,14 +68,14 @@ class StaffObserver
     }
 
 
-    public function retrieved(User $user) : void {
+    // public function retrieved(User $user) : void {
 
-        $id = $user->id;
+    //     $id = $user->id;
         
-        //create logs for stafflogs
-        $stafflog=new StaffLog();
-        $stafflog->staff()->associate($id);
-        $stafflog->save();
-    }
+    //     //create logs for stafflogs
+    //     $stafflog=new StaffLog();
+    //     $stafflog->staff()->associate($id);
+    //     $stafflog->save();
+    // }
 
 }
